@@ -8,12 +8,14 @@
 
       <div id="moduleContent">
           <div class="flex" id="topAlbumsModule">
+              <h2 class="column-header" v-show="searched">Top Albums</h2>
               <ArtistAlbums v-for="(rAlbum, pos) in albums" :key="a+pos"
                 :album="rAlbum">
               </ArtistAlbums>
           </div>
 
           <div class="flex" id="similarArtistsModule">
+              <h2 class="column-header" v-show="searched">Top Artists</h2>
               <SimArtists v-for="(rArtist, pos) in artists" :key="r+pos"
                 :artist="rArtist">
               </SimArtists>
@@ -58,6 +60,8 @@
 
     #topAlbumsModule, #similarArtistsModule {
         flex-direction: column;
+        margin-left: 30px;
+        margin-right: 30px;
     }
 </style>
 
@@ -84,9 +88,11 @@ export default class MainComponent extends Vue {
 
     albums: Array<albums> = [];
     artists: Array<artists> = [];
+    searched =  false;
 
     getArtistInfo(artist: string): void {
         console.log(`Searching artist: ${artist}`);
+        this.searched = true;
 
         axios
             .request({

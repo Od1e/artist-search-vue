@@ -8,8 +8,9 @@
     div { 
         padding: 10px 20px;
         margin-bottom: 10px;
-        background-color: lightgray;
+        background-color: #dfdfdf;
         border-radius: 15px;
+        width: 100%;
     }
 </style>
 
