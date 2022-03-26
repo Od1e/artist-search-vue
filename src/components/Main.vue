@@ -9,14 +9,14 @@
       <div id="moduleContent">
           <div class="flex" id="topAlbumsModule">
               <h2 class="column-header" v-show="searched">Top Albums</h2>
-              <ArtistAlbums v-for="(rAlbum, pos) in albums" :key="a+pos"
+              <ArtistAlbums v-for="(rAlbum, pos) in albums" :key="`album-${pos}`"
                 :album="rAlbum">
               </ArtistAlbums>
           </div>
 
           <div class="flex" id="similarArtistsModule">
               <h2 class="column-header" v-show="searched">Top Artists</h2>
-              <SimArtists v-for="(rArtist, pos) in artists" :key="r+pos"
+              <SimArtists v-for="(rArtist, pos) in artists" :key="`artist-${pos}`"
                 :artist="rArtist">
               </SimArtists>
           </div>
