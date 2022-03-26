@@ -3,19 +3,19 @@
       <div class="flex" id="topBar">
           <h1>Artist Search</h1>
           <SearchBar @artist-changed="getArtistInfo" />
-          <p>Hit enter to search</p>
+          <p id="StatusText">{{ statusText }}</p>
       </div>
 
       <div id="moduleContent">
           <div class="flex" id="topAlbumsModule">
-              <h2 class="column-header" v-show="searched">Top Albums</h2>
+              <h2 class="column-header" v-show="searched">🌠 Top Albums</h2>
               <ArtistAlbums v-for="(rAlbum, pos) in albums" :key="`album-${pos}`"
                 :album="rAlbum">
               </ArtistAlbums>
           </div>
 
           <div class="flex" id="similarArtistsModule">
-              <h2 class="column-header" v-show="searched">Top Artists</h2>
+              <h2 class="column-header" v-show="searched">👥 Similar Artists</h2>
               <SimArtists v-for="(rArtist, pos) in artists" :key="`artist-${pos}`"
                 :artist="rArtist">
               </SimArtists>
@@ -60,6 +60,7 @@
 
     #topAlbumsModule, #similarArtistsModule {
         flex-direction: column;
+        flex-basis: 25%;
         margin-left: 30px;
         margin-right: 30px;
     }
@@ -90,9 +91,12 @@ export default class MainComponent extends Vue {
     artists: Array<artists> = [];
     searched =  false;
 
+    statusText = "Hit enter to search.";
+
     getArtistInfo(artist: string): void {
         console.log(`Searching artist: ${artist}`);
-        this.searched = true;
+
+        this.statusText = "Searching...";
 
         axios
             .request({
@@ -105,6 +109,14 @@ export default class MainComponent extends Vue {
             .then((returnedAlbums: topAlbumsResponse) => {
                 this.albums.splice(0);
                 this.albums.push(...returnedAlbums.topalbums.album);
+            })
+            .then(() => {
+                this.searched = true;
+                this.statusText = "Type a new artist to search again.";
+            })
+            .catch(error => {
+                this.searched = false;
+                this.statusText = "Artist not found.";
             })
 
         axios
