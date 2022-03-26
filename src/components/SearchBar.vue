@@ -22,7 +22,7 @@
         artist = "";
         @Watch('artist')
         onPropertyChanged() {
-            console.log(`New artist: ${this.artist}`)
+            console.log(`Artist input: ${this.artist}`)
             this.$emit("artist-changed", this.artist);
         }
     }
