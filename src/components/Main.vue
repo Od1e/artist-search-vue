@@ -8,11 +8,15 @@
 
       <div id="moduleContent">
           <div class="flex" id="topAlbumsModule">
-
+              <ArtistAlbums v-for="(rAlbum, pos) in albums" :key="a+pos"
+                :album="rAlbum">
+              </ArtistAlbums>
           </div>
 
           <div class="flex" id="similarArtistsModule">
-
+              <SimArtists v-for="(rArtist, pos) in artists" :key="r+pos"
+                :artist="rArtist">
+              </SimArtists>
           </div>
 
           <div id="LastFMDisplayModule">
@@ -78,8 +82,8 @@ export default class MainComponent extends Vue {
     fetchAmountAlbums = 5;
     fetchAmountSimArtists = 5;
 
-    topAlbums!: TopAlbums;
-    similarArtists!: SimilarArtists;
+    albums: Array<albums> = [];
+    artists: Array<artists> = [];
 
     getArtistInfo(artist: string): void {
         console.log(`Searching artist: ${artist}`);
@@ -93,7 +97,8 @@ export default class MainComponent extends Vue {
             })
             .then((r: AxiosResponse) => r.data)
             .then((returnedAlbums: topAlbumsResponse) => {
-                this.topAlbums = returnedAlbums.topalbums;
+                this.albums.splice(0);
+                this.albums.push(...returnedAlbums.topalbums.album);
             })
 
         axios
@@ -105,7 +110,8 @@ export default class MainComponent extends Vue {
             })
             .then((r: AxiosResponse) => r.data)
             .then((returnedArtists: similarArtistsResponse) => {
-                this.similarArtists = returnedArtists.similarartists;
+                this.artists.splice(0);
+                this.artists.push(...returnedArtists.similarartists.artist);
             })
     }
 }
