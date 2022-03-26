@@ -3,10 +3,11 @@
       <div id="topBar">
           <h1>Artist Search</h1>
           <SearchBar/>
+          <p>Hit enter to search</p>
       </div>
 
       <div id="moduleContent">
-          
+
       </div>
   </div>
 </template>
@@ -24,6 +25,11 @@
         flex-basis: 100%;
         flex-wrap: wrap;
     }
+
+    #topBar > p {
+        color: gray;
+        font-size: 12px;
+    }
 </style>
 
 <script lang="ts">
@@ -38,5 +44,8 @@ import LastFMDisplay from "./LastFMDisplay.vue";
     SearchBar, ArtistAlbums, SimilarArtists, LastFMDisplay,
   },
 })
-export default class App extends Vue {}
+
+export default class MainComponent extends Vue {
+    
+}
 </script>

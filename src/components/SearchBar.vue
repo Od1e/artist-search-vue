@@ -15,10 +15,15 @@
 </style>
 
 <script lang="ts">
-    import {Vue, Component} from "vue-property-decorator";
+    import {Vue, Component, Watch} from "vue-property-decorator";
 
     @Component
     export default class MainComponent extends Vue {
         artist = "";
+        @Watch('artist')
+        onPropertyChanged() {
+            console.log(`New artist: ${this.artist}`)
+            this.$emit("artist-changed", this.artist);
+        }
     }
 </script>
