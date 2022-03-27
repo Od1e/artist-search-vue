@@ -1,6 +1,6 @@
 <template>
     <div id="ArtistAlbums">
-        <img :src="album.image[2]['#text']">
+        <img :src="this.album.image[2]['#text']">
         <span id="albumName">{{album.name}}</span>
         <span id="playCount">{{new Intl.NumberFormat().format(album.playcount)}} plays</span>
     </div>
@@ -12,6 +12,7 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+        gap: 5px;
         padding: 10px 20px;
         margin-bottom: 10px;
         background-color: #dfdfdf;
@@ -28,6 +29,11 @@
     #albumName {
         font-weight: bold;
     }
+
+    #playCount {
+        flex-basis: 100px;
+    }
+
 </style>
 
 <script lang="ts">
@@ -37,5 +43,17 @@ import { similarArtistsResponse ,topAlbumsResponse, TopAlbums, SimilarArtists, a
 @Component
 export default class ArtistAlbumsComponent extends Vue {
     @Prop() album!: albums;
+
+    beforeMount(): void {
+        if (this.album.image[2]['#text'] == "") {
+            this.album.image[2]['#text'] = "/assets/missingCover.png";
+        }
+    }
+
+    beforeUpdate(): void {
+        if (this.album.image[2]['#text'] == "") {
+            this.album.image[2]['#text'] = "/assets/missingCover.png";
+        }
+    }
 }
 </script>

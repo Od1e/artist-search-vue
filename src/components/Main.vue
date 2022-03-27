@@ -25,6 +25,7 @@
 
           </div>
       </div>
+      <span id="footerText" class="flex">Powered by <a href="https://www.last.fm/">Last.FM</a></span>
   </div>
 </template>
 
@@ -76,6 +77,17 @@
         flex-basis: 25%;
         margin-left: 30px;
         margin-right: 30px;
+    }
+
+    #footerText {
+        color: #b6b6b6;
+        font-size: 12px;
+    }
+
+    #footerText > a {
+        margin-left: 5px;
+        text-decoration: none;
+        color: #ba0000;
     }
 </style>
 

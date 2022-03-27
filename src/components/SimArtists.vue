@@ -2,6 +2,7 @@
     <div id="SimArtist">
         <span id="artistName">{{artist.name}}</span>
         <span id="artistMatch"><span :class="matchColor">{{matchPct}}</span> match</span>
+        <a :href="artist.url">Profile</a>
     </div>
 </template>
 
@@ -11,12 +12,26 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+        gap: 5px;
         padding: 10px 20px;
         margin-bottom: 10px;
         background-color: #dfdfdf;
         border-radius: 15px;
         width: 100%;
         height: 100px;
+    }
+
+    a {
+        text-decoration: none;
+        background-color: rgb(161, 161, 161);
+        color: rgb(255, 255, 255);
+        padding: 10px 20px;
+        border-radius: 5px;
+        transition: 0.3s;
+    }
+
+    a:hover {
+        background-color: rgb(90, 192, 233);
     }
 
     #artistName {
