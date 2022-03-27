@@ -63,8 +63,8 @@ import { similarArtistsResponse ,topAlbumsResponse, TopAlbums, SimilarArtists, a
 export default class SimilarArtistComponent extends Vue {
     @Prop() artist!: artists;
 
-    matchPct: string;
-    matchColor: string;
+    matchPct?: string;
+    matchColor?: string;
 
     beforeMount() : void {
         this.updatePct();
