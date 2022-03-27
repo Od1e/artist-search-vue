@@ -1,16 +1,42 @@
 <template>
     <div id="SimArtist">
-        <p>{{artist.name}}</p>
+        <span id="artistName">{{artist.name}}</span>
+        <span id="artistMatch"><span :class="matchColor">{{matchPct}}</span> match</span>
     </div>
 </template>
 
 <style scoped>
     div { 
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
         padding: 10px 20px;
         margin-bottom: 10px;
         background-color: #dfdfdf;
         border-radius: 15px;
         width: 100%;
+        height: 100px;
+    }
+
+    #artistName {
+        font-weight: bold;
+    }
+
+    .lowMatch {
+        color:#808080;
+    }
+
+    .medMatch {
+        color:  #cc00ff;
+    }
+
+    .highMatch {
+        color: #01ccc2;
+    }
+
+    .extremeMatch {
+        color: #00c40a;
     }
 </style>
 
@@ -21,5 +47,35 @@ import { similarArtistsResponse ,topAlbumsResponse, TopAlbums, SimilarArtists, a
 @Component
 export default class SimilarArtistComponent extends Vue {
     @Prop() artist!: artists;
+
+    matchPct: string;
+    matchColor: string;
+
+    beforeMount() : void {
+        this.updatePct();
+    }
+
+    beforeUpdate() : void {
+        this.updatePct();
+    }
+
+    updatePct() : void {
+        let matchNumPct = Math.round(this.artist.match * 1000) / 10;
+        this.matchPct = matchNumPct + "%";
+
+        if (matchNumPct == 100) {
+            this.matchColor = "extremeMatch";
+            this.matchPct = "🌟 " + this.matchPct;
+        }
+        else if (matchNumPct >= 80) {
+            this.matchColor = "highMatch";
+        }
+        else if (matchNumPct >= 40) {
+            this.matchColor = "medMatch";
+        }
+        else {
+            this.matchColor = "lowMatch";
+        }
+    }
 }
 </script>

@@ -1,16 +1,32 @@
 <template>
     <div id="ArtistAlbums">
-        <p>{{album.name}}</p>
+        <img :src="album.image[2]['#text']">
+        <span id="albumName">{{album.name}}</span>
+        <span id="playCount">{{new Intl.NumberFormat().format(album.playcount)}} plays</span>
     </div>
 </template>
 
 <style scoped>
     div { 
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
         padding: 10px 20px;
         margin-bottom: 10px;
         background-color: #dfdfdf;
         border-radius: 15px;
         width: 100%;
+    }
+
+    img {
+        height: 100px;
+        border-radius: 15px;
+        margin-right: 5%;
+    }
+
+    #albumName {
+        font-weight: bold;
     }
 </style>
 

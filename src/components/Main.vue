@@ -3,7 +3,7 @@
       <div class="flex" id="topBar">
           <h1>Artist Search</h1>
           <SearchBar @artist-changed="getArtistInfo" />
-          <p id="StatusText">{{ statusText }}</p>
+          <p :class="status">{{ statusText }}</p>
       </div>
 
       <div id="moduleContent">
@@ -46,8 +46,19 @@
     }
 
     #topBar > p {
-        color: gray;
         font-size: 12px;
+    }
+
+    .statusNeutral {
+        color: #b6b6b6;
+    }
+
+    .statusFound {
+        color: #42b3ff;
+    }
+
+    .statusNotFound {
+        color: #f08080;
     }
 
     #moduleContent {
@@ -56,9 +67,11 @@
         justify-content: center;
         flex-direction: row;
         flex-basis: 100%;
+        flex-wrap: wrap;
     }
 
     #topAlbumsModule, #similarArtistsModule {
+        align-self: flex-start;
         flex-direction: column;
         flex-basis: 25%;
         margin-left: 30px;
@@ -92,6 +105,7 @@ export default class MainComponent extends Vue {
     searched =  false;
 
     statusText = "Hit enter to search.";
+    status = "statusNeutral";
 
     getArtistInfo(artist: string): void {
         console.log(`Searching artist: ${artist}`);
@@ -113,10 +127,12 @@ export default class MainComponent extends Vue {
             .then(() => {
                 this.searched = true;
                 this.statusText = "Type a new artist to search again.";
+                this.status = "statusFound";
             })
             .catch(error => {
                 this.searched = false;
                 this.statusText = "Artist not found.";
+                this.status = "statusNotFound";
             })
 
         axios
